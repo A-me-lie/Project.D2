@@ -102,6 +102,8 @@ function toggle_cities(event) {
 // WRITE SPECIFICATION
 // ATTENTION: You need to write the specification of all three functions:
 //            create_countries_cities_filters, create_country and create_city
+
+
 function create_countries_cities_filters() {
   function create_country(country) {
     const dom = document.createElement("div");
@@ -122,6 +124,8 @@ function create_countries_cities_filters() {
 
     array_each(cities, create_city);
   }
+
+
   function create_city(city) {
 
     const dom = create_filter_element({
