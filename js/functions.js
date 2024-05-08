@@ -25,7 +25,6 @@ function click_filter_element(event) {
 // G
 // CODE according to specification
 function create_filter_element(data) {
-
   /*
     ARGUMENTS
       data: object that contains the following keys:
@@ -45,6 +44,14 @@ function create_filter_element(data) {
     RETURN VALUE
       Returns a reference to the new dom-element
   */
+
+  let li_element = document.createElement("li");
+  data.parent.append(li_element);
+  li_element.classList.add(data.class);
+  li_element.textContent = data.textContent;
+  li_element.addEventListener("click", click_filter_element);
+
+  return li_element;
 
 }
 
