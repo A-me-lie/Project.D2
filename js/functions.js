@@ -216,6 +216,35 @@ function create_programme(programme) {
     NO RETURN VALUE
 
   */
+  let university_object = array_find(UNIVERSITIES, (university) => {
+    return university.id === programme.universityID;
+  })
+  // console.log(university_object);
+
+  let city_object = array_find(CITIES, (city) => {
+    return city.id === university_object.cityID;
+  })
+
+  let country_object = array_find(COUNTRIES, (country) => {
+    return country.id === city_object.countryID;
+  })
+  console.log(country_object);
+
+  let programmes = document.getElementById("programmes");
+  let ul = programmes.querySelector("ul");
+  let li = document.createElement("li");
+  li.classList.add("programme");
+
+
+  li.innerHTML = `
+  <div>
+  <div><strong>${programme.name}</strong></div>
+  <div>${university_object.name}</div>
+  <div>${city_object.name + "," + country_object.name}</div>
+  </div>
+  `;
+  ul.append(li);
+  // console.log("programme id:", programme.id);
 
 }
 
@@ -240,7 +269,7 @@ function update_programmes() {
 
   array_each(PROGRAMMES, (programme) => {
     create_programme(programme);
-  })
+  });
 
 }
 
