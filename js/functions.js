@@ -104,6 +104,16 @@ function toggle_cities(event) {
 //            create_countries_cities_filters, create_country and create_city
 
 
+/*
+ ARGUMENTS
+    This function does not take any arguments
+
+ SIDE EFFECTS
+    This function 
+    
+*/
+
+
 function create_countries_cities_filters() {
   function create_country(country) {
     const dom = document.createElement("div");
@@ -227,6 +237,10 @@ function update_programmes() {
       NO RETURN VALUE
 
   */
+
+  array_each(PROGRAMMES, (programme) => {
+    create_programme(programme);
+  })
 
 }
 
