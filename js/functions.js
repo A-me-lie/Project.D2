@@ -219,7 +219,6 @@ function create_programme(programme) {
   let university_object = array_find(UNIVERSITIES, (university) => {
     return university.id === programme.universityID;
   })
-  // console.log(university_object);
 
   let city_object = array_find(CITIES, (city) => {
     return city.id === university_object.cityID;
@@ -228,23 +227,45 @@ function create_programme(programme) {
   let country_object = array_find(COUNTRIES, (country) => {
     return country.id === city_object.countryID;
   })
-  console.log(country_object);
+
+  let level_object = array_find(LEVELS, (level) => {
+    return level.id === programme.levelID;
+  })
+
+  let language_object = array_find(LANGUAGES, (language) => {
+    return language.id === programme.languageID;
+  })
+
+  let subject_object = array_find(SUBJECTS, (subject) => {
+    return subject.id === programme.subjectID;
+  })
+
+  let Maxsun = Math.max(...CITIES.map(city => city.sun));
+  console.log(Maxsun);
+
+  CITIES.forEach(city => {
+    city.sunPercentage = Math.floor((city.sun) * 365);
+  });
 
   let programmes = document.getElementById("programmes");
   let ul = programmes.querySelector("ul");
   let li = document.createElement("li");
   li.classList.add("programme");
 
-
   li.innerHTML = `
   <div>
   <div><strong>${programme.name}</strong></div>
   <div>${university_object.name}</div>
   <div>${city_object.name + "," + country_object.name}</div>
+  <div>${level_object.name + ", " + subject_object.name + ", " + language_object.name}</div>
+  </div>
+
+  <div class="bottom_programme">
+  <div>${city_object.name + ", " + "sun-index: " + city_object.sun + " (" + Math.floor((100 * city_object.sun) / 365) + "%)"}</div>
   </div>
   `;
+
   ul.append(li);
-  // console.log("programme id:", programme.id);
 
 }
 
