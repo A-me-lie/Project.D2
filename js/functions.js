@@ -242,7 +242,6 @@ function create_programme(programme) {
   })
 
   let Maxsun = Math.max(...CITIES.map(city => city.sun));
-  console.log(Maxsun);
 
   CITIES.forEach(city => {
     city.sunPercentage = Math.floor((city.sun) * 365);
