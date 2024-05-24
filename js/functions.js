@@ -289,9 +289,30 @@ function update_programmes() {
 
   */
 
-  array_each(PROGRAMMES, (programme) => {
+  const filteredProgrammes = read_filters();
+
+  clear_programme_display();
+
+  array_each(filteredProgrammes, (programme) => {
     create_programme(programme);
   });
+
+
+  const noProgrammesMessage = document.querySelector('#programmes > p');
+  if (filteredProgrammes.length === 0) {
+    noProgrammesMessage.style.display = 'block';
+  } else {
+    noProgrammesMessage.style.display = 'none';
+  }
+}
+
+// Function to clear the programme display container
+function clear_programme_display() {
+  const programmeContainer = document.querySelector('#programmes > ul');
+  if (programmeContainer) {
+    programmeContainer.innerHTML = ''; // Clear existing programmes
+  }
+
 
 }
 
