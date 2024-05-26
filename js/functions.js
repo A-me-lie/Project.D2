@@ -105,18 +105,37 @@ function toggle_cities(event) {
 //            create_countries_cities_filters, create_country and create_city
 
 
-/*
- ARGUMENTS
-    This function does not take any arguments
-
- SIDE EFFECTS
-    This function 
-    
-*/
-
-
 function create_countries_cities_filters() {
+
+  /*
+   ARGUMENTS
+      This function does not take any arguments
+  
+   SIDE EFFECTS
+      This function modifies the DOM by appending elements for countries and cities under a specific container.
+      Uses predefined global arrays COUNTRIES and CITIES.
+      Uses functions array_each(array, callback) and create_city.
+
+    NO RETURN VALUE
+      
+  */
+
   function create_country(country) {
+    /*
+    ARGUMENTS
+      country: An object representing a country. It has to have the following properties:
+      id (number): A unique identifier for the country.
+      name (string): The name of the country.
+
+    SIDE EFFECTS
+      This function adds classlist "country" and "filter_container" as well as id "country_country.id" to a div element which is appended to the ul element in #country_filter div
+      Uses the global array CITIES, which contains objects representing cities.
+      Uses external funtions array_each and array_filter
+      The CITIES array is filtered to include only the cities that belong to the current country using the array_filter function with a callback 
+      (test_function) that checks if the countryID of a city matches the id of the country.
+
+    NO RETURN VALUE
+    */
     const dom = document.createElement("div");
     dom.classList.add("country");
     dom.classList.add("filter_container");
@@ -139,13 +158,27 @@ function create_countries_cities_filters() {
 
   function create_city(city) {
 
+    /*
+    ARGUMENTS
+      city: An object representing a city. It has to have the following properties:
+      id (number): Unique identifier for the city.
+      name (string): Name of the city.
+      countryID (number): Identifier of the country to which the city belongs.
+
+    SIDE EFFECTS:
+      Creates a li element representing the city.
+      Appends this li element to the ul inside the div with an id corresponding to #country_<city.countryID>.
+      Uses the function create_filter_element(options): It creates a DOM element based on the provided options and returns it
+
+    NO RETURN VALUE
+    */
+
     const dom = create_filter_element({
       parent: document.querySelector(`#country_${city.countryID} > ul`),
       class: "selected",
       textContent: city.name,
     });
     dom.dataset.id = city.id;
-
   }
 
   array_each(COUNTRIES, create_country);
