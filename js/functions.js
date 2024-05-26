@@ -187,43 +187,73 @@ function create_countries_cities_filters() {
 
 // G
 // ABSTRACT AND WRITE SPECIFICATION
-//    As you can see, all three functions below do basically the same thing.
-//    Abstract them to one function, and write the specification of that function.
-function create_levels_filter() {
-  function create_level(level) {
+//  As you can see, all three functions below do basically the same thing.
+//  Abstract them to one function, and write the specification of that function.
+
+function create_filter_elements(array, parentSelector) {
+
+  /*
+  ARGUMENTS
+    array: An array of objects where each object represents a filter item and must have the following properties:
+    id (number): Unique identifier for the filter item.
+    name (string): Name of the filter item.
+
+    parentSelector: A string representing the CSS selector of the parent container to which the created elements will be appended. 
+    This container should contain a ul element where the li elements will be appended.
+
+  SIDE EFFECTS
+    Creates a li element for each filter item in the array.
+    Appends each li element to the ul inside the specified parent container.
+    Uses functions array_each(array, callback) and create_filter_element(options),a function that creates a DOM element based on the provided options and returns it
+
+  NO RETURN VALUE
+  */
+  function create_element(filterItem) {
     const dom = create_filter_element({
-      parent: document.querySelector("#level_filter > ul"),
+      parent: document.querySelector(`${parentSelector} > ul`),
       class: "selected",
-      textContent: level.name,
+      textContent: filterItem.name,
     });
-    dom.dataset.id = level.id;
+    dom.dataset.id = filterItem.id;
   }
-  array_each(LEVELS, create_level);
+  array_each(array, create_element);
 }
+
+// function create_levels_filter() {
+// function create_level(level) {
+// const dom = create_filter_element({
+// parent: document.querySelector("#level_filter > ul"),
+// class: "selected",
+// textContent: level.name,
+// });
+// dom.dataset.id = level.id;
+// }
+// array_each(LEVELS, create_level);
+// }
 // Create Subjects Filter
-function create_subjects_filter() {
-  function create_subject(subject) {
-    const dom = create_filter_element({
-      parent: document.querySelector("#subject_filter > ul"),
-      class: "selected",
-      textContent: subject.name,
-    });
-    dom.dataset.id = subject.id;
-  }
-  array_each(SUBJECTS, create_subject);
-}
+// function create_subjects_filter() {
+// function create_subject(subject) {
+// const dom = create_filter_element({
+// parent: document.querySelector("#subject_filter > ul"),
+// class: "selected",
+// textContent: subject.name,
+// });
+// dom.dataset.id = subject.id;
+// }
+// array_each(SUBJECTS, create_subject);
+// }
 // Create Search Field
-function create_language_filter() {
-  function create_element(data) {
-    const dom = create_filter_element({
-      parent: document.querySelector("#language_filter > ul"),
-      class: "selected",
-      textContent: data.name,
-    });
-    dom.dataset.id = data.id;
-  }
-  array_each(LANGUAGES, create_element);
-}
+// function create_language_filter() {
+// function create_element(data) {
+// const dom = create_filter_element({
+// parent: document.querySelector("#language_filter > ul"),
+// class: "selected",
+// textContent: data.name,
+// });
+// dom.dataset.id = data.id;
+// }
+// array_each(LANGUAGES, create_element);
+// }
 
 
 // G / VG (see details in specification)
