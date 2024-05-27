@@ -387,11 +387,23 @@ function clear_programme_display() {
 // Optional VG: Which parts of the function's code could be abstracted?
 //              Implement it
 function read_filters() {
+  /*
+  NO ARGUMENTS
+
+  SIDE EFFECTS: 
+    This function uses global arrays UNIVERSITIES and PROGRAMMES
+    This function uses array_each(array,callback) and array_filter(array,callback)
+
+  RETURN VALUE: 
+    This function return all the programmes in an array that match what is selected from the filters.
+  */
 
   const city_selected_dom = document.querySelectorAll("#country_filter li.selected");
 
   const city_id_selected = [];
   function callback_add_cityID(dom_element) {
+    // This function takes a DOM element representing a selected city, 
+    // extracts its ID from the dataset, parses it to an whole number, and adds it to an array called city_id_selected
     const id_as_integer = parseInt(dom_element.dataset.id);
     city_id_selected.push(id_as_integer);
   }
@@ -410,6 +422,9 @@ function read_filters() {
 
   let programmes = [];
   function callback_add_programmes(university) {
+    // This function iterates over an array of universities retrieves the ID of each university, 
+    // and then iterates over all programs in the global PROGRAMMES array. 
+    // For each program, if its universityID matches the ID of the current university, the program is added to the programmes array.
     const university_id = university.id;
     for (let i = 0; i < PROGRAMMES.length; i++) {
       const programme = PROGRAMMES[i];
@@ -425,12 +440,15 @@ function read_filters() {
   const level_selected_dom = document.querySelectorAll("#level_filter li.selected");
   const level_id_selected = [];
   function callback_add_levelID(dom_element) {
+    // This function takes a DOM element representing a selected level, 
+    // extracts its ID from the dataset, parses it to an whole number(interger), and adds it to an array called level_id_selected
     const id_as_integer = parseInt(dom_element.dataset.id);
     level_id_selected.push(id_as_integer);
   }
   array_each(level_selected_dom, callback_add_levelID);
 
   function test_function_level(programme) {
+    // This function checks if a given program matches any of the selected level IDs and returns true if a match is found, otherwise false
     return level_id_selected.includes(programme.levelID);
   }
   programmes = array_filter(programmes, test_function_level);
@@ -440,6 +458,8 @@ function read_filters() {
   const language_selected_dom = document.querySelectorAll("#language_filter li.selected");
   const language_id_selected = [];
   function callback_add_languageID(dom_element) {
+    // This function takes a DOM element representing a selected language, 
+    // extracts its ID from the dataset, parses it to an whole number(interger), and adds it to an array called language_id_selected
     const id_as_integer = parseInt(dom_element.dataset.id);
     language_id_selected.push(id_as_integer);
   }
@@ -448,6 +468,7 @@ function read_filters() {
 
 
   function test_function_language(programme) {
+    // This function checks if a given program matches any of the selected language IDs and returns true if a match is found, otherwise false.
     return language_id_selected.includes(programme.languageID);
   }
   programmes = array_filter(programmes, test_function_language);
@@ -457,6 +478,8 @@ function read_filters() {
   const subject_selected_dom = document.querySelectorAll("#subject_filter li.selected");
   const subject_id_selected = [];
   function callback_add_subjectID(dom_element) {
+    // This function takes a DOM element representing a selected subject, 
+    // extracts its ID from the dataset, parses it to an whole number(interger), and adds it to an array called subject_id_selected
     const id_as_integer = parseInt(dom_element.dataset.id);
     subject_id_selected.push(id_as_integer);
   }
@@ -465,6 +488,7 @@ function read_filters() {
 
 
   function test_function_subject(programme) {
+    // This function checks if a given program matches any of the selected subject IDs and returns true if a match is found, otherwise false.
     return subject_id_selected.includes(programme.subjectID);
   }
   programmes = array_filter(programmes, test_function_subject);
@@ -474,10 +498,10 @@ function read_filters() {
   const search_string = document.querySelector("#search_field input").value;
   if (search_string !== "") {
     function test_function(programme) {
+      // This function checks if a given program matches the input from the search field and returns true if a match is found, otherwise false.
       return programme.name.includes(search_string);
     }
     programmes = array_filter(programmes, test_function);
   }
-
   return programmes;
 }
